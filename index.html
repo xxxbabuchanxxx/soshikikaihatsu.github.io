@@ -1,41 +1,164 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<title>あなたのＨＰタイトル</title>
-<meta name="keywords" content="ページのキーワードA,B,C">
-<meta name="description" content="ページの説明">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div id="outer">
-<header>
-<div class="header-inner">
-<h1>あなたのＨＰタイトル</h1>
-<p>あなたのＨＰの説明文</p>
-</div>
-</header>
-<div id="content">
-<div class="inner">
-<h2>記事ページ見出し・大</h2>
-<p>文章あれこれ</p>
-<h3>記事ページ見出し・中</h3>
-<p>文章あれこれ</p>
-<h4>記事ページ見出し・小</h4>
-<p>文章あれこれ</p>
-</div>
-<aside>
-<div class="left-title">サイドバータイトル</div>
-<div class="link">
-<ul>
-<li>記事ページへのリンク</li>
-<li>記事ページへのリンク</li>
-</ul>
-</div>
-</aside>
-</div>
-<footer>© 2010 あなたのホームページ</footer>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>雇用区分変更フローチャート</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+      body {
+        font-family: "Segoe UI", "Yu Gothic", "Meiryo", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 100%;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+      }
+      .controls {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      #mermaid-container {
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>雇用区分変更フローチャート</h1>
+      <div class="controls">
+        <button onclick="zoomIn()">拡大 (+)</button>
+        <button onclick="zoomOut()">縮小 (-)</button>
+        <button onclick="resetZoom()">リセット</button>
+      </div>
+      <div id="mermaid-container" style="transform-origin: top center">
+        <div class="mermaid">
+flowchart TD
+    A[現在の雇用状況] --> B{パートナー職員}
+    A --> C{正規職員専任職}
+    A --> D{正規職員総合職}
+    
+    B --> E[正規職員専任職への雇用区分変更希望]
+    E --> F{受験要件確認}
+    F -->|要件満たす| G[雇用区分・形態変更申請書提出]
+    F -->|要件満たさない| H[受験不可]
+    G --> I[書類選考]
+    I -->|合格| J[適性検査・面接部門長面接or役員面接]
+    I -->|不合格| K[変更不可]
+    J -->|合格| L[専務理事承認]
+    J -->|不合格| K
+    L --> M[正規職員専任職へ変更・仮格付け→本格付け・基本給=基礎時給×平均労働時間・勤続年数通算]
+    
+    C --> N[正規職員総合職への雇用形態変更希望]
+    C --> O[パートナー職員への雇用区分変更希望]
+    
+    N --> P{受験要件確認・運転免許・能力アセスメント4.5以上・所属長推薦}
+    P -->|要件満たす| Q[雇用区分・形態変更申請書提出]
+    P -->|要件満たさない| R[受験不可]
+    Q --> S[適性検査・役員面接]
+    S -->|合格| T[専務理事承認]
+    S -->|不合格| U[変更不可]
+    T --> V[正規職員総合職へ変更・同ステージ格付け・基本給同額・勤続年数通算]
+    
+    O --> W[変更理由申出]
+    W --> X[部門長・人事部門長承認]
+    X -->|承認| Y[パートナー職員へ変更別途基準による]
+    X -->|不承認| Z[変更不可]
+    
+    D --> AA[正規職員専任職への雇用形態変更希望]
+    D --> BB[パートナー職員への雇用区分変更希望]
+    
+    AA --> CC[変更理由申出]
+    CC --> DD[部門長・専務理事承認]
+    DD -->|承認| EE[正規職員専任職へ変更・同ステージ格付け・ステージ5以上は上限まで・基本給同額]
+    DD -->|不承認| FF[変更不可]
+    
+    BB --> GG[変更理由・期間申出]
+    GG --> HH[部門長・人事部門長承認]
+    HH -->|承認| II[パートナー職員へ変更別途基準による]
+    HH -->|不承認| JJ[変更不可]
+    
+    Y --> KK[正規職員への再変更希望]
+    KK --> LL[変更理由・時期申出]
+    LL --> MM[部門長・人事部門長承認]
+    MM -->|承認| NN[正規職員へ復帰]
+    MM -->|不承認| OO[変更不可]
+    
+    EE --> PP[総合職への再変更希望]
+    PP -->|第2条に基づく| Q
+    
+    classDef startNode fill:#e1f5fe
+    classDef processNode fill:#f3e5f5
+    classDef decisionNode fill:#fff3e0
+    classDef endNode fill:#e8f5e8
+    classDef rejectNode fill:#ffebee
+    
+    class A startNode
+    class B,C,D startNode
+    class G,I,J,L,Q,S,T,W,X,CC,DD,GG,HH,LL,MM processNode
+    class F,P decisionNode
+    class M,V,Y,EE,II,NN endNode
+    class H,K,R,U,Z,FF,JJ,OO rejectNode
+        </div>
+      </div>
+    </div>
+
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: "basis",
+        },
+      });
+
+      let currentZoom = 1;
+      const container = document.getElementById("mermaid-container");
+
+      function zoomIn() {
+        currentZoom += 0.1;
+        container.style.transform = `scale(${currentZoom})`;
+      }
+
+      function zoomOut() {
+        if (currentZoom > 0.3) {
+          currentZoom -= 0.1;
+          container.style.transform = `scale(${currentZoom})`;
+        }
+      }
+
+      function resetZoom() {
+        currentZoom = 1;
+        container.style.transform = `scale(${currentZoom})`;
+      }
+    </script>
+  </body>
 </html>

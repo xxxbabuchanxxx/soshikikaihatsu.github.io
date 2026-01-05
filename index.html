@@ -14,6 +14,7 @@
       }
       .container {
         max-width: 100%;
+        min-height: 100vh;
         margin: 0 auto;
         background-color: white;
         padding: 30px;
@@ -45,7 +46,9 @@
       #mermaid-container {
         display: flex;
         justify-content: center;
-        overflow-x: auto;
+        overflow: auto;
+        padding: 40px;
+        min-height: 80vh;
       }
     </style>
   </head>
@@ -140,8 +143,13 @@ flowchart TD
         },
       });
 
-      let currentZoom = 1;
+      let currentZoom = 1.5;
       const container = document.getElementById("mermaid-container");
+      
+      // 初期ズームを適用
+      window.addEventListener('load', function() {
+        container.style.transform = `scale(${currentZoom})`;
+      });
 
       function zoomIn() {
         currentZoom += 0.1;
@@ -156,7 +164,7 @@ flowchart TD
       }
 
       function resetZoom() {
-        currentZoom = 1;
+        currentZoom = 1.5;
         container.style.transform = `scale(${currentZoom})`;
       }
     </script>

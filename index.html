@@ -1,608 +1,152 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>パルシステム神奈川 組織開発課</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --primary-color: #2563eb;
-        --primary-dark: #1e40af;
-        --primary-light: #3b82f6;
-        --secondary-color: #0ea5e9;
-        --accent-color: #06b6d4;
-        --text-dark: #0f172a;
-        --text-gray: #475569;
-        --text-light: #64748b;
-        --bg-light: #f8fafc;
-        --bg-white: #ffffff;
-        --border-color: #e2e8f0;
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: var(--bg-light);
-        color: var(--text-dark);
-        line-height: 1.7;
-        overflow-x: hidden;
-      }
-
-      /* ナビゲーション */
-      nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border-color);
-        z-index: 1000;
-        transition: all 0.3s ease;
-      }
-
-      nav.scrolled {
-        box-shadow: var(--shadow-md);
-      }
-
-      .nav-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 70px;
-      }
-
-      .logo {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .logo-icon {
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 700;
-        font-size: 1.2rem;
-      }
-
-      /* ヒーローセクション */
-      .hero {
-        margin-top: 70px;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        color: white;
-        padding: 120px 24px 80px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="%23ffffff" opacity="0.05"/></svg>');
-        background-size: 100px 100px;
-        opacity: 0.3;
-      }
-
-      .hero-content {
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-        animation: fadeInUp 0.8s ease;
-      }
-
-      .hero-badge {
-        display: inline-block;
-        background: rgba(59, 130, 246, 0.2);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        padding: 8px 20px;
-        border-radius: 50px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: 24px;
-        letter-spacing: 0.5px;
-      }
-
-      .hero h1 {
-        font-size: 3.5rem;
-        font-weight: 900;
-        margin-bottom: 24px;
-        line-height: 1.2;
-        background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .hero .subtitle {
-        font-size: 1.25rem;
-        color: #cbd5e1;
-        margin-bottom: 16px;
-        font-weight: 300;
-        letter-spacing: 0.5px;
-      }
-
-      .hero .description {
-        font-size: 1rem;
-        color: #94a3b8;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      /* コンテナ */
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 80px 24px;
-      }
-
-      /* セクションヘッダー */
-      .section-header {
-        text-align: center;
-        margin-bottom: 60px;
-      }
-
-      .section-label {
-        display: inline-block;
-        color: var(--primary-color);
-        font-size: 0.875rem;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-      }
-
-      .section-title {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: var(--text-dark);
-        margin-bottom: 16px;
-      }
-
-      .section-description {
-        font-size: 1.125rem;
-        color: var(--text-light);
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      /* カードグリッド */
-      .content-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-bottom: 80px;
-      }
-
-      .card {
-        background: var(--bg-white);
-        border-radius: 16px;
-        padding: 40px;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
-      }
-
-      .card:hover::before {
-        transform: scaleX(1);
-      }
-
-      .card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-xl);
-        border-color: var(--primary-light);
-      }
-
-      .card.coming-soon {
-        cursor: default;
-        opacity: 0.6;
-      }
-
-      .card.coming-soon:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-md);
-      }
-
-      .card-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.75rem;
-        margin-bottom: 24px;
-        transition: all 0.3s ease;
-      }
-
-      .card:hover .card-icon {
-        transform: scale(1.1) rotate(5deg);
-      }
-
-      .card-title {
-        font-size: 1.375rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 12px;
-      }
-
-      .card-description {
-        color: var(--text-gray);
-        line-height: 1.7;
-        font-size: 0.95rem;
-      }
-
-      .card-badge {
-        display: inline-block;
-        background: #f1f5f9;
-        color: var(--text-light);
-        font-size: 0.75rem;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-weight: 500;
-        margin-top: 16px;
-      }
-
-      /* 情報セクション */
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
-      }
-
-      .info-card {
-        background: var(--bg-white);
-        border-radius: 16px;
-        padding: 40px;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
-      }
-
-      .info-card h2 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .info-icon {
-        width: 36px;
-        height: 36px;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.125rem;
-      }
-
-      .info-card ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .info-card li {
-        padding: 14px 0;
-        color: var(--text-gray);
-        line-height: 1.7;
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-      }
-
-      .info-card li:last-child {
-        border-bottom: none;
-      }
-
-      .info-card li::before {
-        content: "→";
-        color: var(--primary-color);
-        font-weight: 600;
-        flex-shrink: 0;
-        margin-top: 2px;
-      }
-
-      /* フッター */
-      footer {
-        background: var(--text-dark);
-        color: #94a3b8;
-        padding: 60px 24px 40px;
-        text-align: center;
-      }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .footer-logo {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 16px;
-      }
-
-      .footer-text {
-        font-size: 0.95rem;
-        line-height: 1.8;
-        margin-bottom: 12px;
-      }
-
-      .footer-divider {
-        height: 1px;
-        background: #334155;
-        margin: 40px 0 24px;
-      }
-
-      /* アニメーション */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .animate {
-        animation: fadeInUp 0.8s ease forwards;
-        opacity: 0;
-      }
-
-      .animate:nth-child(1) { animation-delay: 0.1s; }
-      .animate:nth-child(2) { animation-delay: 0.2s; }
-      .animate:nth-child(3) { animation-delay: 0.3s; }
-      .animate:nth-child(4) { animation-delay: 0.4s; }
-
-      /* レスポンシブ */
-      @media (max-width: 768px) {
-        .hero {
-          padding: 80px 24px 60px;
-        }
-
-        .hero h1 {
-          font-size: 2.25rem;
-        }
-
-        .hero .subtitle {
-          font-size: 1rem;
-        }
-
-        .section-title {
-          font-size: 1.875rem;
-        }
-
-        .container {
-          padding: 60px 20px;
-        }
-
-        .content-grid,
-        .info-grid {
-          grid-template-columns: 1fr;
-          gap: 20px;
-        }
-
-        .nav-container {
-          padding: 0 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- ナビゲーション -->
-    <nav id="nav">
-      <div class="nav-container">
-        <a href="index.html" class="logo">
-          <div class="logo-icon">P</div>
-          <span>組織開発課</span>
-        </a>
-      </div>
-    </nav>
-
-    <!-- ヒーローセクション -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-badge">ORGANIZATION DEVELOPMENT</div>
-        <h1>組織開発課ポータル</h1>
-        <p class="subtitle">パルシステム神奈川</p>
-        <p class="description">
-          人事制度、組織活性化、人材育成に関する情報を一元管理。<br>
-          より良い組織づくりをサポートします。
-        </p>
-      </div>
-    </section>
-
-    <!-- メインコンテンツ -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSAP提案システム - ホーム</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
     <div class="container">
-      <div class="section-header">
-        <div class="section-label">Services</div>
-        <h2 class="section-title">サービス一覧</h2>
-        <p class="section-description">
-          組織開発課が提供する各種サービスとツールをご利用いただけます
-        </p>
-      </div>
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">🚀 SSAP提案システム</h1>
+                <p class="header-subtitle">みんなのアイデアで会社をより良く</p>
+            </div>
+        </header>
 
-      <div class="content-grid">
-        <a href="雇用区分変更フローチャート.html" class="card animate">
-          <div class="card-icon">📊</div>
-          <h3 class="card-title">雇用区分変更フローチャート</h3>
-          <p class="card-description">
-            パートナー職員、正規職員（専任職・総合職）の雇用区分変更に関するフローチャートを確認できます。インタラクティブな図で変更プロセスを視覚的に理解できます。
-          </p>
-        </a>
+        <!-- メインコンテンツ -->
+        <main class="main-content">
+            <!-- 説明セクション -->
+            <section class="info-section">
+                <div class="info-card">
+                    <h2>📝 SSAP提案システムとは？</h2>
+                    <p>
+                        社内の改善提案を投稿・共有し、従業員全員で投票できるシステムです。<br>
+                        <strong>600票以上</strong>を獲得した提案は<strong class="highlight">実施候補</strong>に昇格します！
+                    </p>
+                </div>
 
-        <div class="card coming-soon animate">
-          <div class="card-icon">📚</div>
-          <h3 class="card-title">人事制度資料</h3>
-          <p class="card-description">
-            人事制度に関する各種資料やマニュアル、規程集をダウンロードできます。最新の制度改定情報も随時更新します。
-          </p>
-          <span class="card-badge">Coming Soon</span>
-        </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">📋</div>
+                        <h3>提案投稿</h3>
+                        <p>業務改善や新しいアイデアを自由に投稿</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">👍</div>
+                        <h3>投票機能</h3>
+                        <p>良いと思う提案にいいねで投票</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">⏱️</div>
+                        <h3>掲載期間</h3>
+                        <p>提案は30日間掲載され自動で期限管理</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🎯</div>
+                        <h3>実施候補</h3>
+                        <p>600票以上で実施候補に昇格</p>
+                    </div>
+                </div>
+            </section>
 
-        <div class="card coming-soon animate">
-          <div class="card-icon">📝</div>
-          <h3 class="card-title">申請書フォーム</h3>
-          <p class="card-description">
-            各種申請書のダウンロードやオンライン申請が可能です。申請状況の確認や履歴の閲覧もできます。
-          </p>
-          <span class="card-badge">Coming Soon</span>
-        </div>
+            <!-- アクションボタン -->
+            <section class="action-section">
+                <a href="submit.html" class="btn btn-primary btn-large">
+                    <span class="btn-icon">✏️</span>
+                    新しい提案を投稿する
+                </a>
+                <a href="proposals.html" class="btn btn-secondary btn-large">
+                    <span class="btn-icon">📊</span>
+                    提案一覧を見る
+                </a>
+            </section>
 
-        <div class="card coming-soon animate">
-          <div class="card-icon">💡</div>
-          <h3 class="card-title">FAQ・よくある質問</h3>
-          <p class="card-description">
-            組織開発や人事制度に関するよくある質問と回答をまとめました。お困りの際はまずこちらをご確認ください。
-          </p>
-          <span class="card-badge">Coming Soon</span>
-        </div>
-      </div>
+            <!-- 統計情報 -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalProposals">-</div>
+                        <div class="stat-label">掲載中の提案</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="candidateProposals">-</div>
+                        <div class="stat-label">実施候補</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">600</div>
+                        <div class="stat-label">必要投票数</div>
+                    </div>
+                </div>
+            </section>
 
-      <div class="section-header">
-        <div class="section-label">Information</div>
-        <h2 class="section-title">お知らせ・ご案内</h2>
-      </div>
+            <!-- 使い方 -->
+            <section class="howto-section">
+                <h2>📖 使い方</h2>
+                <div class="howto-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>提案を投稿</h3>
+                            <p>「新しい提案を投稿する」ボタンから、あなたのアイデアを投稿してください。</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>提案を閲覧</h3>
+                            <p>「提案一覧を見る」から、他の従業員が投稿した提案を確認できます。</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>いいねで投票</h3>
+                            <p>良いと思った提案に「いいね」ボタンで投票しましょう。</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>実施候補へ</h3>
+                            <p>600票以上を獲得した提案は、実施候補として検討されます。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-      <div class="info-grid">
-        <div class="info-card">
-          <h2>
-            <div class="info-icon">📌</div>
-            お知らせ
-          </h2>
-          <ul>
-            <li>組織開発課ポータルサイトを開設しました</li>
-            <li>雇用区分変更フローチャートを公開しました</li>
-            <li>今後、順次コンテンツを追加していく予定です</li>
-          </ul>
-        </div>
-
-        <div class="info-card">
-          <h2>
-            <div class="info-icon">ℹ️</div>
-            組織開発課について
-          </h2>
-          <ul>
-            <li>人事制度の企画・運用</li>
-            <li>組織活性化の支援</li>
-            <li>人材育成プログラムの推進</li>
-            <li>雇用区分変更の管理</li>
-          </ul>
-        </div>
-      </div>
+        <!-- フッター -->
+        <footer class="footer">
+            <p>&copy; 2026 SSAP提案システム | 組織開発課</p>
+        </footer>
     </div>
 
-    <!-- フッター -->
-    <footer>
-      <div class="footer-content">
-        <div class="footer-logo">パルシステム神奈川 組織開発課</div>
-        <p class="footer-text">
-          Organization Development Division<br>
-          PAL SYSTEM Kanagawa Consumers' Co-operative Union
-        </p>
-        <div class="footer-divider"></div>
-        <p class="footer-text">
-          &copy; 2026 パルシステム神奈川 組織開発課 All Rights Reserved.<br>
-          最終更新: <span id="last-updated"></span>
-        </p>
-      </div>
-    </footer>
-
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
     <script>
-      // ナビゲーションのスクロール効果
-      window.addEventListener('scroll', function() {
-        const nav = document.getElementById('nav');
-        if (window.scrollY > 50) {
-          nav.classList.add('scrolled');
-        } else {
-          nav.classList.remove('scrolled');
-        }
-      });
-
-      // 最終更新日を表示
-      document.getElementById("last-updated").textContent = new Date().toLocaleDateString("ja-JP", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-
-      // スクロールアニメーション
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
+        // ページ読み込み時に統計情報を取得
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const data = await getProposals();
+                const proposals = data.proposals || [];
+                
+                // 掲載中の提案数
+                const activeProposals = proposals.filter(p => p.status === '掲載中' || p.status === '実施候補');
+                document.getElementById('totalProposals').textContent = activeProposals.length;
+                
+                // 実施候補数
+                const candidates = proposals.filter(p => p.status === '実施候補');
+                document.getElementById('candidateProposals').textContent = candidates.length;
+            } catch (error) {
+                console.error('統計情報の取得に失敗:', error);
+                document.getElementById('totalProposals').textContent = '0';
+                document.getElementById('candidateProposals').textContent = '0';
+            }
         });
-      }, observerOptions);
-
-      document.querySelectorAll('.animate').forEach(el => {
-        observer.observe(el);
-      });
     </script>
-  </body>
+</body>
 </html>
-

@@ -40,6 +40,72 @@ function getUserInfo() {
 }
 
 /**
+ * 匿名ユーザーIDを生成または取得
+ * ブラウザフィンガープリント + ランダムIDで一意に識別
+ */
+function getAnonymousUserId() {
+    const STORAGE_KEY = 'ssap_anonymous_user_id';
+    
+    // 既存のIDがあれば返す
+    let userId = localStorage.getItem(STORAGE_KEY);
+    
+    if (!userId) {
+        // 新規ユーザー: ユニークIDを生成
+        userId = generateUserId();
+        localStorage.setItem(STORAGE_KEY, userId);
+    }
+    
+    return userId;
+}
+
+/**
+ * ユニークなユーザーIDを生成
+ * タイムスタンプ + ランダム文字列 + ブラウザフィンガープリント
+ */
+function generateUserId() {
+    // タイムスタンプ
+    const timestamp = new Date().getTime();
+    
+    // ランダム文字列
+    const random = Math.random().toString(36).substring(2, 15);
+    
+    // ブラウザフィンガープリント（簡易版）
+    const fingerprint = getBrowserFingerprint();
+    
+    // 結合してハッシュ化（簡易版）
+    return `USER_${timestamp}_${random}_${fingerprint}`;
+}
+
+/**
+ * ブラウザフィンガープリント（簡易版）を生成
+ * ユーザーエージェント、画面解像度、タイムゾーンなどから生成
+ */
+function getBrowserFingerprint() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const components = [
+        navigator.userAgent,
+        navigator.language,
+        screen.colorDepth,
+        screen.width + 'x' + screen.height,
+        new Date().getTimezoneOffset(),
+        !!window.sessionStorage,
+        !!window.localStorage
+    ].join('###');
+    
+    // 簡易ハッシュ関数
+    let hash = 0;
+    for (let i = 0; i < components.length; i++) {
+        const char = components.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // 32bit整数に変換
+    }
+    
+    return Math.abs(hash).toString(36).substring(0, 8);
+}
+
+/**
  * いいね済み提案をローカルストレージに保存
  */
 function saveLikedProposal(proposalId) {
@@ -73,4 +139,3 @@ function getLikedProposals() {
 function isProposalLiked(proposalId) {
     return getLikedProposals().includes(proposalId);
 }
-

@@ -22,20 +22,10 @@ const candidateCount = document.getElementById('candidateCount');
 
 // ページ読み込み時
 document.addEventListener('DOMContentLoaded', async () => {
-    // ユーザー情報を取得
-    const userInfo = getUserInfo();
-    userEmail = userInfo.email;
+    // 匿名ユーザーIDを取得（自動生成）
+    userEmail = getAnonymousUserId();
     
-    // メールアドレスが未設定の場合は入力を促す
-    if (!userEmail) {
-        userEmail = prompt('メールアドレスを入力してください（いいね機能に使用）:');
-        if (userEmail) {
-            const userName = prompt('お名前を入力してください（任意）:') || '';
-            saveUserInfo(userEmail, userName);
-        } else {
-            userEmail = 'guest@example.com'; // ゲストユーザー
-        }
-    }
+    console.log('🆔 ユーザーID:', userEmail);
     
     // 提案を読み込み
     await loadProposals();
